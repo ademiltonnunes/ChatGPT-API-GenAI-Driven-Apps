@@ -1,0 +1,5 @@
+# Activate Development Environment 
+. venv/bin/activate
+
+#Run Application
+flask run
