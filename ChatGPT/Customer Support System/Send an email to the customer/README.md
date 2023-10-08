@@ -1,4 +1,29 @@
-# Machine Learning Content
-This project aims to implement a customer support system using ChatGPT to build a web-based system that can answer questions about a website. We are using as a basis the tutorial available on the open website: OpenAI document - Website Q&A with Embeddings.
-In order to increase learning, I will be documenting the development process in a few steps, which will be the development of the system on Jupyter Notebook, Python on Ubuntu, Web Service based in Python Flask and Node.js.
-Please, read the pdf file CS589_week2_q2_19679_AdemiltonMarcelo_DaCruzNunes.pdf. It will have all steps taken to develop this project.
+# Customer Support System: An email to the customer
+## Overview
+This project aims to implement web application of a customer service assistant system for a large electronics store that sends email responses to customers. Email responses are sent based on comments that customers left about purchased electronic products.
+	The system was designed as a Flask web application with HTML and CSS user interface. This project will use the ChatGPT OpenAI GPT-3.5 Turbo model.
+## Implementation Steps
+
+To run this application, follow these implementation steps:
+
+### 1. Create a Virtual Environment
+
+```bash
+python3 -m venv venv bash
+```
+
+### 2. Activate the virtual environment:
+```bash
+. venv/bin/activate
+```
+
+### 3.Install the required Python packages:
+```bash
+pip install flask openai python-dotenv Flask-Mail
+```
+
+### 4.Start the Flask application:
+```bash
+flask run
+```
+
