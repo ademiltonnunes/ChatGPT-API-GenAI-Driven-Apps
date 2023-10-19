@@ -2,27 +2,46 @@ function addLanguagesDropdown(){
 //Languages Options
 var languageOptions = ["English", "Spanish", "French", "Portuguese", "Chinese"];
 
-//Adding Languages to dropdown boxes
+//Adding Languages to dropdown box
 var languageQuestionSelect = document.getElementById("languageQuestion");
-var languageAnswerSelect = document.getElementById("languageAnswer");
 
 languageOptions.forEach(function(language) {
     var option = document.createElement("option");
     option.text = language;
-    option.value = language.toLowerCase(); // Use o valor em minúsculas como valor da opção
+    option.value = language.toLowerCase();
     languageQuestionSelect.add(option);
-    
-    // Clone language options to the second dropdown box
-    languageAnswerSelect.add(option.cloneNode(true));
 });
 }
 
-function showLoaderForQuestion() {
-    document.getElementById('loaderQuestion').style.display = 'flex';
-}
+function addProductsDropdown(){
+    var productsSelect = document.getElementById("products");
+    
+    fetch('/updateProducts', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        var productsOptions = data.products;
 
-function hideLoaderForQuestion() {
-    document.getElementById('loaderQuestion').style.display = 'none';
+        productsOptions.forEach(function(product) {
+            var option = document.createElement("option");
+            option.text = product;
+            option.value = product.toLowerCase();
+            productsSelect.add(option);
+        });
+        productsSelect.selectedIndex = -1;
+    })
+    .catch(error => {
+        alert('There was a problem with products:', error);
+    });
 }
 
 function showLoaderForAnswer() {
@@ -33,44 +52,23 @@ function hideLoaderForAnswer() {
     document.getElementById('loaderAnswer').style.display = 'none';
 }
 
-function showLoaderForEmail() {
-    document.getElementById('loaderEmail').style.display = 'flex';
-}
-
-function hideLoaderForEmail() {
-    document.getElementById('loaderEmail').style.display = 'none';
-}
-
-function updateLanguageQuestion() {
-    showLoaderForQuestion();
-    //Clean the Answer
-    document.getElementById('answer').value = '';
-
+function submitQuestion() {    
     var languageQuestionOption = document.getElementById("languageQuestion").value;
-    var questionTextarea = document.getElementById("question"); 
-
-    // Send the selected language to server
-    fetch('/updateQuestionLanguage', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ language_option: languageQuestionOption }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Atualiza o textarea com a mensagem recebida do servidor
-        questionTextarea.value = data.message;
-        hideLoaderForQuestion();
-    });
-    
-}
-
-function submitQuestion() {
-    showLoaderForAnswer();
-    var languageAnswerOption = document.getElementById("languageAnswer").value;
+    var selectedProduct = document.getElementById("products").value;
     var questionTextarea = document.getElementById("question").value;
-    var answerTextarea = document.getElementById("answer"); 
+    var answerTextarea = document.getElementById("answer");
+
+    if(selectedProduct == ''){
+        alert("Select a product first!")
+        return
+    }
+
+    if(questionTextarea == ""){
+        alert("Ask a question first!")
+        return
+    }
+
+    showLoaderForAnswer();    
 
     fetch('/submit_Question', {
         method: 'POST',
@@ -78,8 +76,9 @@ function submitQuestion() {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-            comment: questionTextarea,
-            language: languageAnswerOption
+            question: questionTextarea,
+            product: selectedProduct,
+            language: languageQuestionOption
         })
     })
     .then(response => {
@@ -89,7 +88,7 @@ function submitQuestion() {
         return response.json();
     })
     .then(data => {
-        answerTextarea.value = data.message;
+        answerTextarea.value = data.response;
         hideLoaderForAnswer();
     })
     .catch(error => {
@@ -99,52 +98,7 @@ function submitQuestion() {
     
 }
 
-function send_email(){
-    showLoaderForEmail();
-    var senderEmail = document.getElementById("sender_email").value;
-    var senderPassword = document.getElementById("sender_password").value;
-    var recipientEmail = document.getElementById("recipient_email").value;
-    var answerTextarea = document.getElementById("answer").value; 
-    var comment = document.getElementById("question").value;
-    var languageAnswerOption = document.getElementById("languageAnswer").value;
-
-    if(answerTextarea == ""){
-        alert("Submit email content first")
-        return
-    }
-
-    fetch('/send_email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-            senderEmail: senderEmail,
-            senderPassword: senderPassword,
-            recipientEmail: recipientEmail,
-            answerTextarea: answerTextarea,
-            comment: comment,
-            language: languageAnswerOption
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        hideLoaderForEmail();
-        alert("Email Sent Successfully!", data.message)
-    })
-    .catch(error => {
-        hideLoaderForEmail();
-        alert('There was a problem sending email:', error.error);
-    });
-}
-
-
 //Call function to add languages to dropdwon
 addLanguagesDropdown();
-// Call function to show initial value
-updateLanguageQuestion();
+//Call function to add products to dropdwon
+addProductsDropdown();

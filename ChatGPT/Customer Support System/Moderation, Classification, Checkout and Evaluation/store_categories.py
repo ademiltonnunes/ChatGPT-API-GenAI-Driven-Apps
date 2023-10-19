@@ -1,0 +1,33 @@
+store_categories = {
+  "primary_categories": [
+    "Billing",
+    "Technical Support",
+    "Account Management",
+    "General Inquiry"
+  ],
+  "secondary_categories": {
+    "Billing": [
+      "Unsubscribe or upgrade",
+      "Add a payment method",
+      "Explanation for charge",
+      "Dispute a charge"
+    ],
+    "Technical Support": [
+      "General troubleshooting",
+      "Device compatibility",
+      "Software updates"
+    ],
+    "Account Management": [
+      "Password reset",
+      "Update personal information",
+      "Close account",
+      "Account security"
+    ],
+    "General Inquiry": [
+      "Product information",
+      "Pricing",
+      "Feedback",
+      "Speak to a human"
+    ]
+  }
+}
