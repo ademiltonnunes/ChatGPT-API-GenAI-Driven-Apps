@@ -1,4 +1,4 @@
-# Customer Support System: Moderation, Classification, Checkout and Evaluation
+# SFBU Customer Support System - Chatbot From Files
 ## Overview
 This project aims to implement a web application of a customer support system for SFBU that answers customer’s questions based in a loading PDF.
 The system was designed as a Flask web application with HTML and CSS user interface. This project will use the ChatGPT OpenAI GPT-3.5 Turbo model.
