@@ -21,7 +21,8 @@ python3 -m venv venv bash
 
 ### 3.Install the required Python packages:
 ```bash
-pip install flask openai langchain pydantic==1.10.9 dotenvs
+pip install python-dotenv flask openai langchain pydantic==1.10.9 yt_dlp pydub pypdf bs4 tiktoken langchain[docarray] chromadb
+
 
 ```
 
