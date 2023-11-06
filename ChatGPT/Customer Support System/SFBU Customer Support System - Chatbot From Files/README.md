@@ -21,7 +21,8 @@ python3 -m venv venv bash
 
 ### 3.Install the required Python packages:
 ```bash
-pip install flask openai python-dotenv Flask-Mail
+pip install flask openai langchain pydantic==1.10.9 dotenvs
+
 ```
 
 ### 4.Start the Flask application:
