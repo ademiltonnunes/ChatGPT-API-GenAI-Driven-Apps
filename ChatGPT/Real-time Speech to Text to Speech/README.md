@@ -2,7 +2,7 @@
 ## Overview
 This project aims to implement a AI-Based “Alexa”, which is the possibility of speaking with ChatGPT with voice using Whisper and Google Text to Speech (GTTS).
 The system was built in Python and used the ChatGPT OpenAI text-davinci-002 model.
-Please, read the pdf file CS589_week6_q5_19679_AdemiltonMarcelo_DaCruzNunes.pdf. It will have all steps taken to develop this project.
+Please, read the pdf file CS589_week7_q5_19679_AdemiltonMarcelo_DaCruzNunes. It will have all steps taken to develop this project.
 
 ## Implementation Steps
 
