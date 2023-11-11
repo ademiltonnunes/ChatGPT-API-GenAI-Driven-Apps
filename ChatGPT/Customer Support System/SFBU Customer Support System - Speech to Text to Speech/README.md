@@ -37,8 +37,11 @@ pip install bs4
 pip install tiktoken
 pip install langchain[docarray]
 pip install chromadb
-
-
+pip install SpeechRecognition
+pip install openai-whisper
+pip install gtts
+pip install pyaudio
+sudo apt install ffmpeg
 ```
 
 ### 4.Start the Flask application:
