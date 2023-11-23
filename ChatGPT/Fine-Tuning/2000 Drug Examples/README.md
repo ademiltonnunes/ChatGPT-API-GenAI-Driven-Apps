@@ -17,15 +17,7 @@ I demonstrated how to transform Excel data into the expected fine-tune data form
    pip install openai==0.28
    export OPENAI_API_KEY="<YOUR_OPENAI_API_KEY>"
    ```
-
-## Step 2: Create JSONL File
-
-Create the data.json file using:
-   ```bash
-   nano data.json
-   ```
-
-## Step 3: Analyze and Prepare Data
+## Step 2: Analyze and Prepare Data
 
 1. Install required library:
    ```bash
@@ -37,7 +29,7 @@ Create the data.json file using:
    openai tools fine_tunes.prepare_data -f data.json
    ```
 
-## Step 4: Fine-Tune the Model
+## Step 3: Fine-Tune the Model
 
 1. Install necessary libraries:
    ```bash
@@ -49,14 +41,14 @@ Create the data.json file using:
    openai api fine_tunes.create -t "data_prepared.jsonl" -m curie
    ```
 
-## Step 5: List Fine-Tuned Models
+## Step 4: List Fine-Tuned Models
 
 List your fine-tuned models:
    ```bash
    openai api fine_tunes.list
    ```
 
-## Step 6: Use the Fine-Tuned Model
+## Step 5: Use the Fine-Tuned Model
 
 1. Set the fine-tuned model in the environment variable:
    ```bash
@@ -68,7 +60,7 @@ List your fine-tuned models:
    openai api completions.create -m $FINE_TUNED_MODEL -p "<YOUR_PROMPT>"
    ```
 
-## Step 7: Analyze Fine-Tuned Model
+## Step 6: Analyze Fine-Tuned Model
 
 List the fine-tuned model to get its job id:
    ```bash
