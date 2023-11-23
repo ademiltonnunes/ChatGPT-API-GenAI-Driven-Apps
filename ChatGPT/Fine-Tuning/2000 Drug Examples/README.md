@@ -74,5 +74,4 @@ List the fine-tuned model to get its job id:
    ```bash
    openai api fine_tunes.list
    ```
-```
 
