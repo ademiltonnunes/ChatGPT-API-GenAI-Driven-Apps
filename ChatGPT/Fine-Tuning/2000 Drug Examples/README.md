@@ -1,32 +1,78 @@
-# Real-time Speech to Text to Speech: Building Your AI-Based Alexa
+# Fine-Tuning based on 2000 drug examples from an Excel file
 ## Overview
-This project aims to implement a AI-Based “Alexa”, which is the possibility of speaking with ChatGPT with voice using Whisper and Google Text to Speech (GTTS).
-The system was built in Python and used the ChatGPT OpenAI text-davinci-002 model.
-Please, read the pdf file CS589_week7_q5_19679_AdemiltonMarcelo_DaCruzNunes. It will have all steps taken to develop this project.
+This product exemplifies fine-tuning of a basic LLM, chatGPT 3.5. In order to fine-tune our project, we used an excel file with several examples of remedies and the malady they treat.
+I demonstrated how to transform Excel data into the expected fine-tune data format and tested examples.
 
 ## Implementation Steps
+## Step 1: Setting Environment
 
-To run this application, follow these implementation steps:
+1. Create and activate the development environment:
+   ```bash
+   python3 -m venv venv
+   . venv/bin/activate
+   ```
 
-### 1. Create a Virtual Environment
+2. Install Openai and set the Openai key:
+   ```bash
+   pip install openai==0.28
+   export OPENAI_API_KEY="<YOUR_OPENAI_API_KEY>"
+   ```
 
-```bash
-python3 -m venv venv bash
+## Step 2: Create JSONL File
+
+Create the data.json file using:
+   ```bash
+   nano data.json
+   ```
+
+## Step 3: Analyze and Prepare Data
+
+1. Install required library:
+   ```bash
+   pip install openai[datalib]
+   ```
+
+2. Analyze the data.json file:
+   ```bash
+   openai tools fine_tunes.prepare_data -f data.json
+   ```
+
+## Step 4: Fine-Tune the Model
+
+1. Install necessary libraries:
+   ```bash
+   pip install pandas openpyxl openai==0.28
+   ```
+
+2. Fine-tune the model:
+   ```bash
+   openai api fine_tunes.create -t "data_prepared.jsonl" -m curie
+   ```
+
+## Step 5: List Fine-Tuned Models
+
+List your fine-tuned models:
+   ```bash
+   openai api fine_tunes.list
+   ```
+
+## Step 6: Use the Fine-Tuned Model
+
+1. Set the fine-tuned model in the environment variable:
+   ```bash
+   export FINE_TUNED_MODEL="<YOUR_FINE_TUNED_MODEL>"
+   ```
+
+2. Generate completions using the fine-tuned model:
+   ```bash
+   openai api completions.create -m $FINE_TUNED_MODEL -p "<YOUR_PROMPT>"
+   ```
+
+## Step 7: Analyze Fine-Tuned Model
+
+List the fine-tuned model to get its job id:
+   ```bash
+   openai api fine_tunes.list
+   ```
 ```
 
-### 2. Activate the virtual environment:
-```bash
-. venv/bin/activate
-```
-
-### 3.Install the required Python packages:
-```bash
-pip show pydub 
-pip install pydub
-pip install SpeechRecognition
-pip install openai-whisper
-pip install gtts
-pip install openai
-pip install pyaudio
-sudo apt update && sudo apt install ffmpeg
-```
