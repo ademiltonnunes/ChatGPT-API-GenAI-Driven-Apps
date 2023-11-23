@@ -1,7 +1,7 @@
 # Fine-Tuning based on 2000 drug examples from an Excel file
 ## Overview
 This product exemplifies fine-tuning of a basic LLM, chatGPT 3.5. In order to fine-tune our project, we used an excel file with several examples of remedies and the malady they treat.
-I demonstrated how to transform Excel data into the expected fine-tune data format and tested examples.
+I demonstrated how to transform Excel data into the expected fine-tune data format and tested examples. Please, read the pdf file CS589_week10_q1_19679_AdemiltonMarcelo_DaCruzNunes.pdf. It will have all steps taken to develop this project.
 
 ## Implementation Steps
 ## Step 1: Setting Environment
