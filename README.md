@@ -7,8 +7,8 @@ Welcome to my repository! This collection of projects is based on the Deep Learn
 1. **[Web QA Embeddings](ChatGPTAPI/Web-QA-Embeddings):**
    - Web AI system that can answer questions about a website using the OpenAI Embeddings
 
-2. **Project 1 Title:**
-   - Project: [Link to Project 2](project2/README.md)
+2. **[Responding to Customer Reviews](ChatGPTAPI/Responding-to-customer-reviews):**
+   - Web-based customer service assistant system designed to send email responses derived from customer reviews of electronic products. It utilizes techniques such as summarizing, inferring, transforming text, and expanding to generate effective and contextually relevant responses.
 
 3. **Project 1 Title:**
    - Project: [Link to Project 3](project3/README.md)
