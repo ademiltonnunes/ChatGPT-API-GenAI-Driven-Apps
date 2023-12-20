@@ -1,13 +1,4 @@
-Flask==1.1.2
-Jinja2==2.11.3
-MarkupSafe==1.1.1
-Werkzeug==0.16.1
-beautifulsoup4==4.9.3
-itsdangerous==1.1.0
-matplotlib
-openai==0.19.0
-python-dotenv
-plotly
-scipy
-scikit-learn
+flask 
+openai 
+python-dotenv 
 
