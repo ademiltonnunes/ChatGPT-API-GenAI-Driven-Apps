@@ -34,11 +34,11 @@ Follow these steps to set up your project with a virtual environment:
    $ python -m venv venv
    ```
 5. Active the new virtual environment:
-   Linux:
+   - Linux:
     ```bash
       $ . venv/bin/activate
      ```
-   Windows:
+   - Windows:
    ```bash
    .\venv\Scripts\Activate
     ```
@@ -60,3 +60,10 @@ You should be able to access the app at [http://localhost:5000](http://localhost
 
 ## Usage
 Once the Flask application is running, you can use the web interface to ask questions about the SFBU website and receive AI-generated answers.
+
+## Personalize to Your Own Website
+
+**Note:** The testing for this project was done on the SFBU website. Due to space constraints, the web crawling of SFBU website was limited only to its the homepage, so this example will answer question only of data present in the homepage. If you want to have questions answered from your own website, you can manually execute the `main()` function in the `web_qa.py` file. Before doing so, make sure to update the `domain` and `full_url` variables with the desired domain and website URL.
+
+Please be aware that the web crawling process can be time-consuming and may cost around $2, depending on the size of the website. In the future, a potential enhancement could involve incorporating the web crawling process into the front-end and limiting the number of websites that can be crawled at once.
+
