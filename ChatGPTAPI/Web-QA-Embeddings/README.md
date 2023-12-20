@@ -50,3 +50,6 @@ Follow these steps to set up your project with a virtual environment:
    ```
 
 You should be able to access the app at [http://localhost:5000](http://localhost:5000)!
+
+## Usage
+Once the Flask application is running, you can use the web interface to ask questions about the SFBU website and receive AI-generated answers.
