@@ -32,18 +32,25 @@ Follow these steps to set up your project with a virtual environment:
 
    ```bash
    $ python -m venv venv
-   $ . venv/bin/activate
    ```
-
-5. Install the requirements:
+5. Active the new virtual environment:
+   Linux:
+    ```bash
+      $ . venv/bin/activate
+     ```
+   Windows:
+   ```bash
+   .\venv\Scripts\Activate
+    ```
+7. Install the requirements:
 
    ```bash
    $ pip install -r requirements.txt
    ```
 
-6. Add your [API key](https://beta.openai.com/account/api-keys) to the `.env` file.
+8. Add your [API key](https://beta.openai.com/account/api-keys) to the `.env` file.
 
-8. Run the app:
+9. Run the app:
 
    ```bash
    $ flask run
