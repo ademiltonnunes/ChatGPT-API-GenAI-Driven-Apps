@@ -16,14 +16,6 @@ For detailed instructions and explanations, refer to the official tutorial: [Web
 
 Follow these steps to set up your project with a virtual environment:
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/ademiltonnunes/Generative-AI-Driven-Intelligent-Apps-Development.git
- 
-## Getting Started
-
-Follow these steps to set up your project with a virtual environment:
-
 1. If you don’t have Python installed, [install it from here](https://www.python.org/downloads/).
 
 2. Clone this repository.
