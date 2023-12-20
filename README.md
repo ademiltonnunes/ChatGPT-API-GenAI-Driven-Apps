@@ -1,11 +1,11 @@
 # Generative AI-Driven Intelligent Apps Development
 
-Welcome to my repository! This collection of projects is based on the Deep Learning Specialization offered by [deeplearning.ai](https://www.deeplearning.ai/short-courses/). Each project corresponds to a specific course in the specialization.
+Welcome to my repository! This collection of projects is based on the Deep Learning Specialization offered by [deeplearning.ai](https://www.deeplearning.ai/short-courses/) and building real AI apps by [OpenAI Tutorials](https://platform.openai.com/docs/tutorials). Each project corresponds to a specific course in the specialization or OpenAI tutorial.
 
 ## Projects
 
-1. **Project 1 Title:**
-   - Project: [Link to Project 1](project1/README.md)
+1. **[Web QA Embeddings](ChatGPTAPI/Web-QA-Embeddings):**
+   - Web AI system that can answer questions about a website using the OpenAI Embeddings
 
 2. **Project 1 Title:**
    - Project: [Link to Project 2](project2/README.md)
