@@ -7,15 +7,6 @@ from products_descriptions_dictionary import products_description_detailed
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Configure Flask-Mail
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = 'your_gmail@gmail.com'
-app.config['MAIL_PASSWORD'] = 'your_app_specific_password'
-mail = Mail(app)
-
 @app.route("/", methods=("GET", "POST"))
 def index():
     return render_template('index.html')
@@ -45,50 +36,6 @@ def submit_email():
     
     return jsonify({'message': email})
 
-@app.route('/send_email', methods=['POST'])
-def send_email():
-    data = request.get_json()
-    sender_email = data.get('senderEmail')
-    sender_password = data.get('senderPassword')
-    recipient_email = data.get('recipientEmail')
-    email_content = data.get('answerTextarea')
-    comment = data.get('comment')
-    language = data.get('language')
-
-    if not email_content:
-        return jsonify({'error': 'Email content cannot be empty'})
-    
-    if not comment:
-        return jsonify({'error': 'Comment cannot be empty'})
-      
-    subject:str = generate_email_subject(comment, language)
-
-    # Extract mail server from sender_email
-    mail_server = extract_mail_server(sender_email)    
-    
-    try:
-        if mail_server == "gmail.com":
-            # Send email
-            app.config['MAIL_USERNAME'] = sender_email
-            app.config['MAIL_PASSWORD'] = sender_password
-
-            message = Message(subject, sender=sender_email, recipients=[recipient_email])
-            
-            message.body = email_content
-
-            # Check for authentication success
-         
-            result = mail.send(message)          
-            if result is None:
-                return jsonify({'message': 'Email sent successfully'})
-            else:
-                return jsonify({'error': 'Authentication failed. Check your credentials.'})
-        else:
-            return jsonify({'error': 'Email must be a Gmail address'})    
-    except Exception as e:
-        print(e)
-        return jsonify({'error': f'Error sending email: {str(e)}'})
- 
 #Ask ChatGPT
 def generate_answer(prompt):
     messages = [{"role": "user", "content": prompt}]
@@ -165,8 +112,3 @@ def generate_email(comment:str, summary:str, sentiment:str, subject:str, languag
     chatGptResponse=generate_answer(prompt)
     return chatGptResponse
 
-#Step 6: Send Email
-def extract_mail_server(sender_email):
-    # Assuming sender_email is in the format "username@mailserver.com"
-    # Extract mail server from email address
-    return sender_email.split('@')[1]

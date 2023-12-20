@@ -33,14 +33,6 @@ function hideLoaderForAnswer() {
     document.getElementById('loaderAnswer').style.display = 'none';
 }
 
-function showLoaderForEmail() {
-    document.getElementById('loaderEmail').style.display = 'flex';
-}
-
-function hideLoaderForEmail() {
-    document.getElementById('loaderEmail').style.display = 'none';
-}
-
 function updateLanguageQuestion() {
     showLoaderForQuestion();
     //Clean the Answer
@@ -98,51 +90,6 @@ function submitQuestion() {
     });
     
 }
-
-function send_email(){
-    showLoaderForEmail();
-    var senderEmail = document.getElementById("sender_email").value;
-    var senderPassword = document.getElementById("sender_password").value;
-    var recipientEmail = document.getElementById("recipient_email").value;
-    var answerTextarea = document.getElementById("answer").value; 
-    var comment = document.getElementById("question").value;
-    var languageAnswerOption = document.getElementById("languageAnswer").value;
-
-    if(answerTextarea == ""){
-        alert("Submit email content first")
-        return
-    }
-
-    fetch('/send_email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-            senderEmail: senderEmail,
-            senderPassword: senderPassword,
-            recipientEmail: recipientEmail,
-            answerTextarea: answerTextarea,
-            comment: comment,
-            language: languageAnswerOption
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        hideLoaderForEmail();
-        alert("Email Sent Successfully!", data.message)
-    })
-    .catch(error => {
-        hideLoaderForEmail();
-        alert('There was a problem sending email:', error.error);
-    });
-}
-
 
 //Call function to add languages to dropdwon
 addLanguagesDropdown();
