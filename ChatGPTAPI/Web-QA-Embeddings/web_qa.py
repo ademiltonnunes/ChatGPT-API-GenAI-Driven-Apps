@@ -223,7 +223,6 @@ class Embed():
 
         # Set the text column to be the raw text with the newlines removed
         df['text'] = df.fname + ". " + self.__remove_newlines(df.text)
-        # df.to_csv('processed/scraped.csv')
         df.to_csv('processed/scraped.csv', escapechar='\\', index=True)  # Change '\\' to the escape character you prefer
         
         #Read csv file
@@ -346,35 +345,23 @@ def main() -> None:
     domain = "sfbu.edu"
     full_url = "https://sfbu.edu/"
 
-    #Embed website
-    # Embed(api_key, domain,full_url).embedding()
+    #Embed a website
+    Embed(api_key, domain,full_url).embedding()
 
-    #Ask Questions
-    question:str = ""
-      
-    question = "What day is it?"
-    answer = Ask(api_key).answerQuestion(question)
-    print(question)
-    print(answer)
-    print()
+    # #Asking Questions 
+    # question = "What is SFBU?"
+    # answer = Ask(api_key).answerQuestion(question)
+    # print(question)
+    # print(answer)
+    # print()
 
-    question = "What is SFBU?"
-    answer = Ask(api_key).answerQuestion(question)
-    print(question)
-    print(answer)
-    print()
+    # question = "What day is it?"
+    # answer = Ask(api_key).answerQuestion(question)
+    # print(question)
+    # print(answer)
+    # print()
 
-    question = "What are MSCS Classes?"
-    answer = Ask(api_key).answerQuestion(question)
-    print(question)
-    print(answer)
-    print()
 
-    question = "Who is the SFBU's President?"
-    answer = Ask(api_key).answerQuestion(question)
-    print(question)
-    print(answer)
-    print()
 
 if __name__== "__main__":
     main()
