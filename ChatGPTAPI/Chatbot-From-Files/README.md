@@ -1,6 +1,6 @@
 # Chatbot From Files
 
-This project aims to implement a web application for a chatbot that interacts with your own documents and data, answering questions based on personal files (PDF). All responses are specific to the loaded file; if a question is unrelated to the file, the chatbot will not respond. The project also includes a file upload feature that allows users to feed the system with information. Currently, only PDF files are accepted, but the project can be extended to retrieve data from URLs, YouTube videos, etc.
+This project aims to implement a web application for a chatbot that interacts with your own documents and data, answering questions based on personal files (PDF) using semantic search. All responses are specific to the loaded file; if a question is unrelated to the file, the chatbot will not respond. The project also includes a file upload feature that allows users to feed the system with information. Currently, only PDF files are accepted, but the project can be extended to retrieve data from URLs, YouTube videos, etc.
 
 ## Deep Learning Course: LangChain Chat with Your Data
 
