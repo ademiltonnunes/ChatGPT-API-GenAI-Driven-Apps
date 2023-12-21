@@ -13,8 +13,8 @@ Welcome to my repository! This collection of projects is based on the Deep Learn
 3. **[Answering Customer Questions about Electronic Store Products](ChatGPTAPI/Customer-Support-System-Q-and-A):**
    - A web-based customer support assistant system designed to answer inquiries about products available for purchase in an electronic store. The system employs techniques such as Moderation, Prompt Injection Prevention, Classification, Output Checking, and more.
 
-4. **Project 1 Title:**
-   - Project: [Link to Project 4](project4/README.md)
+4. **[Chatbot From Files](ChatGPTAPI/Chatbot-From-Files):**
+   - Web application for a chatbot that interacts with your own documents and data, answering questions based on personal files (PDF) using semantic search.
 
 5. **Project 1 Title:**
    - Project: [Link to Project 5](project5/README.md)
