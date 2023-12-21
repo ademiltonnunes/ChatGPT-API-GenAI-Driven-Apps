@@ -31,7 +31,7 @@ Follow the instructions in each project's README to set up and run the code. Mak
 
 - [deeplearning.ai](https://www.deeplearning.ai/) for providing the excellent Deep Learning Specialization.
 
-Feel free to explore each project and learn more about the concepts covered in the courses. If you have any questions or issues, please open an [issue](https://github.com/yourusername/yourrepository/issues).
+Feel free to explore each project and learn more about the concepts covered in the courses. If you have any questions or issues, please open an [issue](https://github.com/ademiltonnunes/Generative-AI-Driven-Intelligent-Apps-Development/issues).
 
 Thank you!
 
