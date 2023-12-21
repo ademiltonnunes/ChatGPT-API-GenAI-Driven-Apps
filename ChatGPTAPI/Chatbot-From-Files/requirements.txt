@@ -1,0 +1,9 @@
+langchain
+pydantic==1.10.9 
+yt_dlp 
+pydub 
+pypdf 
+bs4 
+tiktoken 
+langchain[docarray] 
+chromadb
