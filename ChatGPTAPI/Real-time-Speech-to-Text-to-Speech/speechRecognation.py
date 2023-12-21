@@ -16,36 +16,6 @@ from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv()) # read local .env file
 openai.api_key  = os.environ['OPENAI_API_KEY']
 
-# def init_api():
-#     with open(".env") as env:
-#         for line in env:
-#             key, value = line.strip().split("=")
-#             os.environ[key] = value
-
-#     openai.api_key = os.environ.get("API_KEY")
-#     openai.organization = os.environ.get("ORG_ID")
-
-@click.command()
-@click.option("--model", default="base", help="Model to use", type=click.Choice(["tiny", "base", "small", "medium", "large"]))
-@click.option("--english", default=False, help="Whether to use the English model", is_flag=True, type=bool)
-@click.option("--energy", default=300, help="Energy level for the mic to detect", type=int)
-@click.option("--pause", default=0.8, help="Pause time before entry ends", type=float)
-@click.option("--dynamic_energy", default=False, is_flag=True, help="Flag to enable dynamic energy", type=bool)
-@click.option("--wake_word", default="hey computer", help="Wake word to listen for", type=str)
-@click.option("--verbose", default=False, help="Whether to print verbose output", is_flag=True, type=bool)
-def main(model, english, energy, pause, dynamic_energy, wake_word, verbose):
-    if model != "large" and english:
-        model = model + ".en"
-    audio_model = whisper.load_model(model)
-    audio_queue = queue.Queue()
-    result_queue = queue.Queue()
-
-    threading.Thread(target=record_audio, args=(audio_queue, energy, pause, dynamic_energy)).start()
-    threading.Thread(target=transcribe_forever, args=(audio_queue, result_queue, audio_model, english, wake_word, verbose)).start()
-    threading.Thread(target=reply, args=(result_queue,verbose)).start()
-
-    while True:
-        print(result_queue.get())
 
 def record_audio(audio_queue, energy, pause, dynamic_energy):
     r = sr.Recognizer()
@@ -122,5 +92,27 @@ def reply(result_queue, verbose):
         reply_audio = AudioSegment.from_mp3("reply.mp3")
         play(reply_audio)
 
-# init_api()
+@click.command()
+@click.option("--model", default="base", help="Model to use", type=click.Choice(["tiny", "base", "small", "medium", "large"]))
+@click.option("--english", default=False, help="Whether to use the English model", is_flag=True, type=bool)
+@click.option("--energy", default=300, help="Energy level for the mic to detect", type=int)
+@click.option("--pause", default=0.8, help="Pause time before entry ends", type=float)
+@click.option("--dynamic_energy", default=False, is_flag=True, help="Flag to enable dynamic energy", type=bool)
+@click.option("--wake_word", default="hey computer", help="Wake word to listen for", type=str)
+@click.option("--verbose", default=False, help="Whether to print verbose output", is_flag=True, type=bool)
+def main(model, english, energy, pause, dynamic_energy, wake_word, verbose):
+    if model != "large" and english:
+        model = model + ".en"
+    audio_model = whisper.load_model(model)
+    audio_queue = queue.Queue()
+    result_queue = queue.Queue()
+
+    threading.Thread(target=record_audio, args=(audio_queue, energy, pause, dynamic_energy)).start()
+    threading.Thread(target=transcribe_forever, args=(audio_queue, result_queue, audio_model, english, wake_word, verbose)).start()
+    threading.Thread(target=reply, args=(result_queue,verbose)).start()
+
+    while True:
+        print(result_queue.get())
+
+
 main()
