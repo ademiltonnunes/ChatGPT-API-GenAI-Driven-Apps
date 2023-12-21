@@ -1,9 +1,9 @@
 import os
 import openai
 from flask import Flask, render_template, request, jsonify
-from products_descriptions_dictionary import products_description_detailed
-from category_products import category_products
-from store_categories import store_categories
+from Database.products_descriptions_dictionary import products_description_detailed
+from Database.category_products import category_products
+from Database.store_categories import store_categories
 
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -238,9 +238,4 @@ def check_output(question:str, response):
 
     chatGptResponse=generate_answer(prompts, system_prompt)
     return chatGptResponse
-
-if __name__ == '__main__':
-    app.run(debug=True, port=8081)
-
-
 
