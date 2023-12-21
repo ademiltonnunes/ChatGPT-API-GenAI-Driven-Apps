@@ -10,8 +10,8 @@ Welcome to my repository! This collection of projects is based on the Deep Learn
 2. **[Responding to Customer Reviews](ChatGPTAPI/Responding-to-customer-reviews):**
    - Web-based customer service assistant system designed to send email responses derived from customer reviews of electronic products. It utilizes techniques such as summarizing, inferring, transforming text, and expanding to generate effective and contextually relevant responses.
 
-3. **Project 1 Title:**
-   - Project: [Link to Project 3](project3/README.md)
+3. **[Answering Customer Questions about Electronic Store Products](ChatGPTAPI/Customer-Support-System-Q-and-A):**
+   - A web-based customer support assistant system designed to answer inquiries about products available for purchase in an electronic store. The system employs techniques such as Moderation, Prompt Injection Prevention, Classification, Output Checking, and more.
 
 4. **Project 1 Title:**
    - Project: [Link to Project 4](project4/README.md)
