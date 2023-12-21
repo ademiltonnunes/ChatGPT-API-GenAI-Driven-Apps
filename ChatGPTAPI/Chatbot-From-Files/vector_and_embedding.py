@@ -130,7 +130,7 @@ class LangChaing:
         except Exception as e:
             return e
 
-# Function to load database from file
+# Function to load database from file and dont use a local database
 def __load_db(file, chain_type, k):
     loader = PyPDFLoader(file_path=file)
     documents = loader.load()
