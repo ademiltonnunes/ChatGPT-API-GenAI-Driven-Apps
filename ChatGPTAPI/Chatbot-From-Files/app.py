@@ -359,5 +359,5 @@ def update_page():
     llm.chatbot = None
     return jsonify({'message': 'Update Page'})
  
-if __name__ == '__main__':
-    app.run(debug=True, port=5555)
+# if __name__ == '__main__':
+#     app.run(debug=True, port=5555)
