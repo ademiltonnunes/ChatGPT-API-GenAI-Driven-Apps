@@ -1,10 +1,17 @@
 import os
 import openai
 import sys
+import time
 sys.path.append('../..')
 
 #PDF
 from langchain.document_loaders import PyPDFLoader
+#URLs
+from langchain.document_loaders import WebBaseLoader
+#Youtube
+from langchain.document_loaders.generic import GenericLoader
+from langchain.document_loaders.parsers import OpenAIWhisperParser
+from langchain.document_loaders.blob_loaders.youtube_audio import YoutubeAudioLoader
 #Split document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 #Embedding
@@ -12,24 +19,36 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 #Vectorstores
 import shutil
 from langchain.vectorstores import Chroma
-from joblib import dump, load
-#ChatBot
-from langchain.vectorstores import DocArrayInMemorySearch
-from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
-from langchain.chat_models import ChatOpenAI
 
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv()) # read local .env file
 openai.api_key  = os.environ['OPENAI_API_KEY']
+UPLOAD_FOLDER = 'uploads/pdf'
+UPLOAD_URL = 'uploads/url'
+UPLOAD_YOUTUBE = 'uploads/youtube'
 persist_directory = 'docs/chroma/'
-db_name = 'retriever_model.joblib'
+persist_youtube_audio = 'docs/youtube/'
+url_file_name = "url.txt"
+youtube_file_name = "youtube.txt"
 
 class LangChaing:
 
     def __load_PDF(self, pathPdf:str):    
         pdf = PyPDFLoader(pathPdf)
         return pdf.load()
+    
+    def __load_url(self, url:str):
+        loader = WebBaseLoader(url)
+        return loader.load()
+
+    def __load_youtube(self, url:str):
+
+
+        loader = GenericLoader(
+            YoutubeAudioLoader([url],persist_youtube_audio),
+            OpenAIWhisperParser()
+        )
+        return loader.load()
 
     def __split_content(self, docs):
 
@@ -42,34 +61,21 @@ class LangChaing:
 
     def __create_vectorstore(self, chunks):       
         #Create Indexes
-        # embedding = OpenAIEmbeddings(openai_api_key= openai.api_key)
         embedding = OpenAIEmbeddings()
-
-        # Remove the directory and its contents
-        if os.path.exists(persist_directory):
-            directory_path = f'./{persist_directory}'
-            shutil.rmtree(directory_path)
 
         vectordb = Chroma.from_documents(
             documents=chunks,
             embedding=embedding,
             persist_directory=persist_directory
         )
-     
-    def upload_file(self, path):
-        pdf_directory = path
+    
+    def upload_pdf(self, path):
+        pdf_path = path
 
-        docs = []
-        pdf_files = []
-        for f in os.listdir(pdf_directory):
-            if f.endswith('.pdf'):
-                pdf_files.append(f)
+        docs = []       
+        docs.extend(self.__load_PDF(pdf_path))
         
-        if len(pdf_files) > 0:
-
-            for pdf in pdf_files:
-                file_path = f"{path}/{pdf}"
-                docs.extend(self.__load_PDF(file_path))
+        if len(docs) > 0:
             
             #Split chunks
             chunks = self.__split_content(docs)
@@ -81,95 +87,100 @@ class LangChaing:
         else:
             return False
     
-    def __load_chatbot(self, k = 3, chain_type='stuff'):    
-        # Directory and file information 
-        chroma_filename = 'chroma.sqlite3'    
-        chroma_filepath = os.path.join(persist_directory, chroma_filename)
+    def upload_url(self, url, timer = False):      
 
-        #Check if directory exist
-        if not os.path.exists(persist_directory) and not os.path.isdir(persist_directory):
-            raise Exception(f"Error: Directory '{persist_directory}' not found.")
+        docs = []       
+        docs.extend(self.__load_url(url))
         
-        # Check if the vector exists
-        if not os.path.exists(chroma_filepath):
-            raise Exception(f"Error: Chroma file '{chroma_filepath}' not found.")
+        if len(docs) > 0:
+            
+            #Split chunks
+            chunks = self.__split_content(docs)
+            
+            #Vectorstores
+            self.__create_vectorstore(chunks)
+
+            if timer:
+                time.sleep(10)
+
+            return True
+        else:
+            return False
+
+    def upload_youtube(self, youtube):      
+
+        docs = []       
+        docs.extend(self.__load_youtube(youtube))
         
-        # Load the Chroma object from the file
-        embedding = OpenAIEmbeddings()
-        vector_db = Chroma(persist_directory= persist_directory, embedding_function= embedding)
-       
-       #Retrieve db        
-        retriever = vector_db.as_retriever(search_type="similarity", search_kwargs={"k": k})
+        if len(docs) > 0:
+            
+            #Split chunks
+            chunks = self.__split_content(docs)
+            
+            #Vectorstores
+            self.__create_vectorstore(chunks)    
 
-       # Create a ConversationBufferMemory
-        memory = ConversationBufferMemory(
-        memory_key="chat_history",
-        return_messages=True  # Return chat history as a list of messages
-        )
+            return True
+        else:
+            return False
+    
+    def upload_all_files(self):
+        #delete vectore
+        self.delete_vectorstore()
+        
+        #Load all files
+        pdfs = self.get_pdfs_path()
+        urls = self.get_urls()
+        youtubes = self.get_youtubes()
 
-        qa = ConversationalRetrievalChain.from_llm(
-            llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0),
-            chain_type=chain_type,
-            retriever=retriever,
-            return_source_documents=False,
-            return_generated_question=False,
-            memory=memory,
-            output_key='answer'  # Specify the desired output key
-        )
+        #Load all files existent
+        if len(pdfs)>0:
+            for pdf in pdfs:
+                self.upload_pdf(pdf)
+        
+        if len(urls)>0:
+            for url in urls:
+                self.upload_url(url)
+        
+        if len(youtubes)>0:
+            for yt in youtubes:
+                self.upload_youtube(yt)
 
-        return qa
+    def get_pdfs_path(self, path = UPLOAD_FOLDER): 
 
-    def chat(self, question):
+        pdfs_path = []
 
-        try:
+        for pdf in os.listdir(path):
+            if pdf.endswith('.pdf'):
+                pdf_path = os.path.join(path, pdf)
+                pdfs_path.append(pdf_path)
+        
+        return pdfs_path
+    
+    def get_urls(self, path = UPLOAD_URL, url_file = url_file_name):  
+        url_links = []
+        file_path = os.path.join(path, url_file)
+        with open(file_path, 'r') as file:
+            url_links = [line.strip() for line in file.readlines()]
+        
+        return url_links
+    
+    def get_youtubes(self, path = UPLOAD_YOUTUBE, youtube_file = youtube_file_name):  
+        youtube_links = []
+        file_path = os.path.join(path, youtube_file)
+        with open(file_path, 'r') as file:
+            youtube_links = [line.strip() for line in file.readlines()]
+        
+        return youtube_links
+    
+    def delete_vectorstore(self, path = persist_directory):
+        if os.path.exists(path):
+            directory_path = f'./{path}'
+            shutil.rmtree(directory_path)
 
-            chatbot = self.__load_chatbot()
-            response = chatbot({'question': question,'chat_history': []})
-
-            return response
-        except Exception as e:
-            return e
-
-# Function to load database from file and dont use a local database
-def __load_db(file, chain_type, k):
-    loader = PyPDFLoader(file_path=file)
-    documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
-    docs = text_splitter.split_documents(documents)
-    embeddings = OpenAIEmbeddings()
-    db = DocArrayInMemorySearch.from_documents(docs, embeddings)
-    retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": k})
-
-    # Create a ConversationBufferMemory
-    memory = ConversationBufferMemory(
-        memory_key="chat_history",
-        return_messages=True  # Return chat history as a list of messages
-    )
-
-    qa = ConversationalRetrievalChain.from_llm(
-        llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0),
-        chain_type=chain_type,
-        retriever=retriever,
-        return_source_documents=False,
-        return_generated_question=False,
-        memory=memory,
-        output_key='answer'  # Specify the desired output key
-    )
-
-    return qa
-
-
-def main() -> None:
-    lc = LangChaing()
-    # created = lc.upload_file('LangChain/SFBU_Customer_Support_System/uploads/pdf')
-    response = lc.chat("What is SFBU?")
-    print(response)
-
-    # chatbot = __load_db(file='LangChain/SFBU_Customer_Support_System/uploads/pdf/2023Catalog.pdf', chain_type='stuff', k=3)
-
-    # response = chatbot({'question': "What is SFBU?",'chat_history': []})
-
-    # print(response)
-
-if __name__ == '__main__':
-    main()
+# def main() -> None:
+#     lc = LangChaing()
+#     # created = lc.upload_file('LangChain/SFBU_Customer_Support_System/uploads/pdf')
+    
+# if __name__ == '__main__':
+#     main()

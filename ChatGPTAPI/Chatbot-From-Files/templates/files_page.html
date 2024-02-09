@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SFBU - Customer Support System</title>
+        <link
+            rel="shortcut icon"
+            href="{{ url_for('static', filename='SFBU-logo.png') }}"
+        />        
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+
+        <!-- Import this CDN to use icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><style>
+            .custom-btn-color {
+                background-color: #2B2A4C;
+                border-color: #2B2A4C; /* If you want the border color to match the background */
+                color: rgb(255, 255, 255); /* For text color */
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div class="container">
+            <div class="loader" id="loaderUpload">Wait! Uploading files. It can take some minutes...</div>
+            
+            <p><button type="button" class="btn custom-btn-color" onclick="location.href='{{ url_for('home') }}'">Home</button></p>
+
+            <div class="content-header">
+                <div class="container1">
+                    <p><b>Content Upload</b></p>                    
+                </div>
+            </div>         
+            <div class="content-page">
+                <!--Upload PDF -->   
+                <div class="content-inbox">
+                    <p><b>PDF</b></p>                               
+                    <div class="content-bottom">                        
+                        <div class="input-group-content">                            
+                            <label for="pdfFile">Select a file: </label>
+                            <input type="file" id="pdfInput" name="pdfFile">
+                            <button type="button" class="btn btn-secondary" onclick="uploadPDF()">Upload</button>
+                        </div>
+                        <div class="input-group-content"> 
+                            <label>PDFs Uploaded:</label><br/>
+                            <div id="pdfs">
+                                <ul id = "pdf-list"></ul>
+                            </div>                 
+                        </div>
+                    </div>
+                </div>
+                <!--Upload URL --> 
+                <div class="content-inbox">
+                    <p><b>URL</b></p>                               
+                    <div class="content-bottom">                        
+                        <div class="input-group-content">                            
+                            <label for="urlFile">URL link: </label>
+                            <input type="url" id="urlInput" name="urlFile" placeholder="www.domain.com">
+                            <button type="button" class="btn btn-secondary" onclick="uploadUrl()">Upload</button>
+                        </div>
+                        <div class="input-group-content"> 
+                            <label>URLs Uploaded:</label><br/>
+                            <div id="urls">
+                                <ul id = "url-list"></ul>
+                            </div>                 
+                        </div>
+                    </div>
+                </div>
+                <!--Upload Youtube videos --> 
+                <div class="content-inbox">
+                    <p><b>Youtube Videos</b></p>                               
+                    <div class="content-bottom">                        
+                        <div class="input-group-content">                            
+                            <label for="youtubeFile">Youtube link: </label>
+                            <input type="url" id="youtubeInput" name="youtubeFile" placeholder="www.youtube.com">
+                            <button type="button" class="btn btn-secondary" onclick="uploadYoutube()">Upload</button>
+                        </div>
+                        <div class="input-group-content"> 
+                            <label>Youtube Videos Uploaded:</label><br/>
+                            <div id="youtubes">
+                                <ul id = "youtube-list"></ul>
+                            </div>                 
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <script src="{{ url_for('static', filename='files_page.js') }}"></script>
+    </body>
+</html>
+
+
+
