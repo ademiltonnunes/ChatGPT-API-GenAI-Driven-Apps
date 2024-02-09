@@ -14,7 +14,7 @@ Welcome to my repository! This collection of projects is based on the Deep Learn
    - A web-based customer support assistant system designed to answer inquiries about products available for purchase in an electronic store. The system employs techniques such as Moderation, Prompt Injection Prevention, Classification, Output Checking, and more.
 
 4. **[Chatbot From Files](ChatGPTAPI/Chatbot-From-Files):**
-   - A web application for a chatbot that interacts with your own documents and data, answering questions based on personal files (PDF) using semantic search.
+   - A robust web application for a chatbot that interacts with your personal documents and data, providing responses through semantic search. It also includes a file upload feature that allows users to feed the system with information, and advanced features such as translation, voice recognition, and enhanced user question techniques.
 
 5. **[Building Your AI-Based Alexa](ChatGPTAPI/Real-time-Speech-to-Text-to-Speech):** 
    - An AI-Based "Alexa" in Python, enabling voice interaction with ChatGPT using Whisper for speech-to-text and Google Text to Speech (GTTS) for audio responses.
