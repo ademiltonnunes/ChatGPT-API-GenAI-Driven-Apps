@@ -1,6 +1,6 @@
 # Chatbot From Files
 
-This project aims to implement a web application for a chatbot that interacts with your own documents and data, answering questions based on personal files (PDF) using semantic search. All responses are specific to the loaded file; if a question is unrelated to the file, the chatbot will not respond. The project also includes a file upload feature that allows users to feed the system with information. Currently, only PDF files are accepted, but the project can be extended to retrieve data from URLs, YouTube videos, etc.
+This project aims to implement a robust web application for a chatbot that interacts with your personal documents and data, providing responses through semantic search. All responses are specific to the loaded file; if a question is unrelated to the file, the chatbot will not respond. The project also includes a file upload feature that allows users to feed the system with information. It also includes advanced features such as translation, voice recognition, and enhanced user question techniques.
 
 ## Deep Learning Course: LangChain Chat with Your Data
 
@@ -10,7 +10,7 @@ This project incorporates techniques from the "LangChain Chat with Your Data" co
 
 To interact with documents loaded into the system, the following techniques from the course were employed:
 
-- **Document Loading**: In this project, data comes from PDFs, but it can be sourced from websites, different databases, YouTube, etc. LangChain offers 80 different types of document loaders. Regardless of the data source, the data must be in text format for system consumption.
+- **Document Loading**: Data can be sourced from various formats including PDFs, websites, databases, and YouTube videos, then converted into text format for system consumption.
 
 - **Splitting Documents**: Once the document is loaded in text format, it is divided into chunks, configurable based on semantic syntax. The project uses the RecursiveCharacterTextSplitter approach and includes Chunk Overlap configuration, influencing the continuity of information.
 
@@ -25,10 +25,15 @@ To interact with documents loaded into the system, the following techniques from
 - **Conversation Memory Buffer**: Question answering is designed to handle historical questions and context through the Conversation Memory Buffer.
 
 ## Key Features
-
-- Integration with the ChatGPT OpenAI GPT-3.5 model for use as a Large Language Model (LLM).
-- User interface built with HTML and CSS for easy interaction.
-- LangChain for loading documents, creating a vector store, and answering questions.
+- **Translation**: Integration with Google Translate allows users to chat in multiple languages, enhancing accessibility.
+- **Voice Recognition**: Users can ask questions through voice recognition using the Whisper module.
+- **Text and Voice Responses**: The system responds in both text and voice, providing a seamless user experience.
+- **User Question Techniques**:
+  - **Moderation**: OpenAI's Moderation tool ensures responsible usage and compliance with policies.
+  - **Prompt Injection Prevention**: Mechanisms are in place to prevent users from injecting inappropriate prompts or revealing sensitive information.
+- **Integration with the ChatGPT OpenAI GPT-3.5 model**:  OpenAI GPT-3.5 model is used as a Large Language Model (LLM).
+- **User interface built with HTML and CSS** for easy interaction.
+- **LangChain** for loading documents, creating a vector store, and answering questions.
 
 ## Technologies Used
 
@@ -84,3 +89,6 @@ You should be able to access the app at [http://localhost:5000](http://localhost
 
 ## Usage
 Once the Flask application is running, you can use the web interface to load documents and ask questions related to the personal data uploaded.
+
+Feel free to adjust the content as needed for your specific project requirements!
+
