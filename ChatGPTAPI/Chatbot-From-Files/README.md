@@ -8,7 +8,7 @@ This project incorporates techniques from the "LangChain Chat with Your Data" co
 
 ## Techniques for Interacting with Your Own Documents and Data in the Chatbot
 
-To interact with documents loaded into the system, the following techniques from the course were employed:
+To interact with documents loaded into the system, the following techniques were employed:
 
 - **Document Loading**: Data can be sourced from various formats including PDFs, websites, databases, and YouTube videos, then converted into text format for system consumption.
 
@@ -16,7 +16,7 @@ To interact with documents loaded into the system, the following techniques from
 
 - **Embedding**: For each chunk, embedding indexes are generated. Semantically closer chunks have similar indexes.
 
-- **Vector Store Database**: Indexes are stored in a vector store database with N dimensions. Semantically neighboring chunks are stored in the same dimensions. The vector store database can be kept in memory or stored locally, easily retrieved for system use without generating a new database.
+- **Vector Store Database**: Indexes are stored in a vector store database with N dimensions. Semantically neighboring chunks are stored in the same dimensions. The vector store database can be kept in memory or stored locally, easily retrieved for system use.
 
 - **Answering Questions**: The vector store database is used as a basis for answering questions in the LLM. Customer queries draw data from the vector store database, creating a conversational retrieval chain in the LLM.
 
