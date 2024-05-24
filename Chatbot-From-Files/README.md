@@ -51,11 +51,11 @@ Follow these steps to set up your project with a virtual environment:
 2. Clone this repository.
 
    ```bash
-   git clone https://github.com/ademiltonnunes/Generative-AI-Driven-Intelligent-Apps-Development.git
+   git clone https://github.com/ademiltonnunes/ChatGPT-API-GenAI-Driven-Apps.git
 
 3.  Navigate into the project directory
       ```bash
-        cd ChatGPTAPI/Chatbot-From-Files
+        cd Chatbot-From-Files
 
 5. Create a new virtual environment:
 
