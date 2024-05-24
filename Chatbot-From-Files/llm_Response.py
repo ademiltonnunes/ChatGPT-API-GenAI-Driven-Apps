@@ -8,14 +8,17 @@ sys.path.append('../..')
 # sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 #Embedding
-from langchain.embeddings.openai import OpenAIEmbeddings
+# from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
 #Vectorstores
-from langchain.vectorstores import Chroma
+# from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
 #ChatBot
 # from langchain.vectorstores import DocArrayInMemorySearch
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
-from langchain.chat_models import ChatOpenAI
+# from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 
 # libraries imported for translation
 from googletrans import Translator

@@ -5,20 +5,30 @@ import time
 sys.path.append('../..')
 
 #PDF
-from langchain.document_loaders import PyPDFLoader
+# from langchain.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
+
 #URLs
-from langchain.document_loaders import WebBaseLoader
+# from langchain.document_loaders import WebBaseLoader
+from langchain_community.document_loaders import WebBaseLoader
+
 #Youtube
-from langchain.document_loaders.generic import GenericLoader
-from langchain.document_loaders.parsers import OpenAIWhisperParser
-from langchain.document_loaders.blob_loaders.youtube_audio import YoutubeAudioLoader
+# from langchain.document_loaders.generic import GenericLoader
+from langchain_community.document_loaders.generic import GenericLoader
+# from langchain.document_loaders.parsers import OpenAIWhisperParser
+from langchain_community.document_loaders.parsers.audio import OpenAIWhisperParser
+# from langchain.document_loaders.blob_loaders.youtube_audio import YoutubeAudioLoader
+from langchain_community.document_loaders import YoutubeAudioLoader
+
 #Split document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 #Embedding
-from langchain.embeddings.openai import OpenAIEmbeddings
+# from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
 #Vectorstores
 import shutil
-from langchain.vectorstores import Chroma
+# from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
 
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv()) # read local .env file
